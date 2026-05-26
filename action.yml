@@ -1,5 +1,5 @@
-name: github-actions-composite-template
-description: GitHub Actions Composite Template
+name: page-test
+description: Test your web pages for errors in GitHub Actions
 author: remarkablemark
 
 inputs:
@@ -19,5 +19,5 @@ runs:
         VERSION: ${{ inputs.version }}
 
 branding:
-  icon: activity
-  color: white
+  icon: check-circle
+  color: green

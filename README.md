@@ -1,21 +1,21 @@
-# github-actions-composite-template
+# page-test
 
-[![GitHub Release](https://img.shields.io/github/v/release/remarkablemark/github-actions-composite-template)](https://github.com/remarkablemark/github-actions-composite-template/releases)
-[![test](https://github.com/remarkablemark/github-actions-composite-template/actions/workflows/test.yml/badge.svg)](https://github.com/remarkablemark/github-actions-composite-template/actions/workflows/test.yml)
-[![lint](https://github.com/remarkablemark/github-actions-composite-template/actions/workflows/lint.yml/badge.svg)](https://github.com/remarkablemark/github-actions-composite-template/actions/workflows/lint.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/remarkablemark/page-test)](https://github.com/remarkablemark/page-test/releases)
+[![test](https://github.com/remarkablemark/page-test/actions/workflows/test.yml/badge.svg)](https://github.com/remarkablemark/page-test/actions/workflows/test.yml)
+[![lint](https://github.com/remarkablemark/page-test/actions/workflows/lint.yml/badge.svg)](https://github.com/remarkablemark/page-test/actions/workflows/lint.yml)
 
-⚙️ GitHub Actions Composite Template. Inspired by [remarkablemark/hello-world-composite-action](https://github.com/remarkablemark/hello-world-composite-action).
+🧪 Test your web pages for errors in GitHub Actions.
 
 ## Quick Start
 
 ```yaml
 on: push
 jobs:
-  github-actions-composite-template:
+  page-test:
     runs-on: ubuntu-latest
     steps:
-      - name: GitHub Actions Composite Template
-        uses: remarkablemark/github-actions-composite-template@v1
+      - name: Page Test
+        uses: remarkablemark/page-test@v1
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ jobs:
 **Basic:**
 
 ```yaml
-- uses: remarkablemark/github-actions-composite-template@v1
+- uses: remarkablemark/page-test@v1
 ```
 
 See [action.yml](action.yml)
@@ -35,7 +35,7 @@ See [action.yml](action.yml)
 **Optional**: The version. Defaults to `1.2.3`:
 
 ```yaml
-- uses: remarkablemark/github-actions-composite-template@v1
+- uses: remarkablemark/page-test@v1
   with:
     version: 1.2.3
 ```
