@@ -3,20 +3,62 @@ description: Test your web pages for errors in GitHub Actions
 author: remarkablemark
 
 inputs:
-  version:
-    description: Version
-    required: false
-    default: 1.2.3
+  url:
+    description: URL of the page to test
+    required: true
+  browser:
+    description: Browser to use (chromium, firefox, or webkit)
+    default: chromium
+  timeout:
+    description: Navigation timeout in milliseconds
+    default: 30000
+  playwright-version:
+    description: Playwright npm version to install
+    default: latest
+  start:
+    description: Shell command to start a local server in the background
+  wait-on:
+    description: URL to poll until available before running the page check
+  cache:
+    description: Cache Playwright browser binaries
+    default: true
 
 runs:
   using: composite
   steps:
-    - name: Print version
+    - name: Restore Playwright cache
+      if: inputs.cache == 'true'
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ inputs.playwright-version }}-${{ runner.os }}-${{ inputs.browser }}
+
+    - name: Install Playwright
       shell: bash
       run: |
-        echo "version: $VERSION"
+        npm install playwright@"$PLAYWRIGHT_VERSION" --ignore-scripts
+        npx playwright install --with-deps "$BROWSER"
       env:
-        VERSION: ${{ inputs.version }}
+        PLAYWRIGHT_VERSION: ${{ inputs.playwright-version }}
+        BROWSER: ${{ inputs.browser }}
+
+    - name: Start server
+      if: inputs.start != ''
+      shell: bash
+      run: |
+        $START &
+        npx wait-on "$WAIT_ON"
+      env:
+        START: ${{ inputs.start }}
+        WAIT_ON: ${{ inputs.wait-on }}
+
+    - name: Run page check
+      shell: bash
+      run: node "$GITHUB_ACTION_PATH/page-test.mjs"
+      env:
+        URL: ${{ inputs.url }}
+        BROWSER: ${{ inputs.browser }}
+        TIMEOUT: ${{ inputs.timeout }}
 
 branding:
   icon: check-circle
