@@ -1,8 +1,8 @@
-# page-test
+# page-test-action
 
-[![GitHub Release](https://img.shields.io/github/v/release/remarkablemark/page-test)](https://github.com/remarkablemark/page-test/releases)
-[![test](https://github.com/remarkablemark/page-test/actions/workflows/test.yml/badge.svg)](https://github.com/remarkablemark/page-test/actions/workflows/test.yml)
-[![lint](https://github.com/remarkablemark/page-test/actions/workflows/lint.yml/badge.svg)](https://github.com/remarkablemark/page-test/actions/workflows/lint.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/remarkablemark/page-test-action)](https://github.com/remarkablemark/page-test-action/releases)
+[![test](https://github.com/remarkablemark/page-test-action/actions/workflows/test.yml/badge.svg)](https://github.com/remarkablemark/page-test-action/actions/workflows/test.yml)
+[![lint](https://github.com/remarkablemark/page-test-action/actions/workflows/lint.yml/badge.svg)](https://github.com/remarkablemark/page-test-action/actions/workflows/lint.yml)
 
 🧪 Test your web pages for errors in GitHub Actions.
 
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Page Test
-        uses: remarkablemark/page-test@v1
+        uses: remarkablemark/page-test-action@v1
         with:
           url: https://example.com
 ```
@@ -27,7 +27,7 @@ jobs:
 **Basic:**
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: https://example.com
 ```
@@ -35,7 +35,7 @@ jobs:
 **With a local server:**
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: http://localhost:3000
     start: npm start
@@ -51,7 +51,7 @@ See [action.yml](action.yml)
 **Required**: The URL of the page to test:
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: https://example.com
 ```
@@ -61,7 +61,7 @@ See [action.yml](action.yml)
 **Optional**: The browser to use (`chromium`, `firefox`, or `webkit`). Defaults to `chromium`:
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: https://example.com
     browser: firefox
@@ -72,7 +72,7 @@ See [action.yml](action.yml)
 **Optional**: Navigation timeout in milliseconds. Defaults to `30000`:
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: https://example.com
     timeout: "15000"
@@ -83,7 +83,7 @@ See [action.yml](action.yml)
 **Optional**: The Playwright npm version to install. Defaults to `latest`:
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: https://example.com
     playwright-version: 1.52.0
@@ -94,7 +94,7 @@ See [action.yml](action.yml)
 **Optional**: Shell command to start a local server in the background before running the page check:
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: http://localhost:3000
     start: npm start
@@ -106,7 +106,7 @@ See [action.yml](action.yml)
 **Optional**: URL to poll until available before running the page check. Used together with `start`:
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: http://localhost:3000
     start: npm start
@@ -118,7 +118,7 @@ See [action.yml](action.yml)
 **Optional**: Cache Playwright browser binaries to speed up subsequent runs. Defaults to `true`:
 
 ```yaml
-- uses: remarkablemark/page-test@v1
+- uses: remarkablemark/page-test-action@v1
   with:
     url: https://example.com
     cache: "false"
