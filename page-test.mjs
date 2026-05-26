@@ -1,6 +1,6 @@
 import { appendFileSync } from "node:fs";
 import { chromium, firefox, webkit } from "playwright";
-import { escapeMarkdownTableCell, logError } from "./utils.mjs";
+import { buildSummary, logError } from "./utils.mjs";
 
 const URL = process.env.URL;
 const BROWSER = process.env.BROWSER || "chromium";
@@ -66,30 +66,10 @@ async function run() {
   }
 
   if (GITHUB_STEP_SUMMARY) {
-    const status = passed ? "✅ Passed" : "❌ Failed";
-    let summary = `## Page Test
-
-| Field | Value |
-| :--- | :--- |
-| **Status** | ${status} |
-| **URL** | ${escapeMarkdownTableCell(URL)} |
-| **Browser** | ${escapeMarkdownTableCell(BROWSER)} |
-
-`;
-
-    if (!passed) {
-      summary += `### Errors
-
-| Error Type | Error Message |
-| :--- | :--- |
-`;
-      for (const { type, message } of errors) {
-        summary += `| ${escapeMarkdownTableCell(type)} | ${escapeMarkdownTableCell(message)} |
-`;
-      }
-    }
-
-    appendFileSync(GITHUB_STEP_SUMMARY, summary);
+    appendFileSync(
+      GITHUB_STEP_SUMMARY,
+      buildSummary({ url: URL, browser: BROWSER, passed, errors }),
+    );
   }
 
   if (passed) {
