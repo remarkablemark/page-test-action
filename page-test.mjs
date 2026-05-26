@@ -1,5 +1,6 @@
 import { appendFileSync } from "node:fs";
 import { chromium, firefox, webkit } from "playwright";
+import { escapeMarkdownTableCell } from "./utils.mjs";
 
 const URL = process.env.URL;
 const BROWSER = process.env.BROWSER || "chromium";
@@ -71,8 +72,8 @@ async function run() {
 | Field | Value |
 | :--- | :--- |
 | **Status** | ${status} |
-| **URL** | ${URL} |
-| **Browser** | ${BROWSER} |
+| **URL** | ${escapeMarkdownTableCell(URL)} |
+| **Browser** | ${escapeMarkdownTableCell(BROWSER)} |
 
 `;
 
@@ -83,7 +84,7 @@ async function run() {
 | :--- | :--- |
 `;
       for (const { type, message } of errors) {
-        summary += `| ${type} | ${message.replace(/\|/g, "\\|")} |
+        summary += `| ${escapeMarkdownTableCell(type)} | ${escapeMarkdownTableCell(message)} |
 `;
       }
     }
