@@ -1,23 +1,25 @@
 import { appendFileSync } from "node:fs";
 import { chromium, firefox, webkit } from "playwright";
+import { buildSummary, logError } from "./utils.mjs";
 
 const URL = process.env.URL;
 const BROWSER = process.env.BROWSER || "chromium";
-const TIMEOUT = parseInt(process.env.TIMEOUT || "30000", 10);
+const _TIMEOUT = parseInt(process.env.TIMEOUT, 10);
+const TIMEOUT = Number.isNaN(_TIMEOUT) ? 30000 : _TIMEOUT;
 const GITHUB_STEP_SUMMARY = process.env.GITHUB_STEP_SUMMARY;
 
 const BROWSERS = { chromium, firefox, webkit };
 
 async function run() {
   if (!URL) {
-    console.error("::error::URL environment variable is required");
+    logError("URL environment variable is required");
     process.exit(1);
   }
 
   const browserType = BROWSERS[BROWSER];
   if (!browserType) {
-    console.error(
-      `::error::Unknown browser: ${BROWSER}. Must be chromium, firefox, or webkit.`,
+    logError(
+      `Unknown browser: ${BROWSER}. Must be chromium, firefox, or webkit.`,
     );
     process.exit(1);
   }
@@ -61,34 +63,14 @@ async function run() {
   const passed = errors.length === 0;
 
   for (const { type, message } of errors) {
-    console.log(`::error::${type}: ${message}`);
+    logError(`${type}: ${message}`);
   }
 
   if (GITHUB_STEP_SUMMARY) {
-    const status = passed ? "✅ Passed" : "❌ Failed";
-    let summary = `## Page Test
-
-| Field | Value |
-| :--- | :--- |
-| **Status** | ${status} |
-| **URL** | ${URL} |
-| **Browser** | ${BROWSER} |
-
-`;
-
-    if (!passed) {
-      summary += `### Errors
-
-| Error Type | Error Message |
-| :--- | :--- |
-`;
-      for (const { type, message } of errors) {
-        summary += `| ${type} | ${message.replace(/\|/g, "\\|")} |
-`;
-      }
-    }
-
-    appendFileSync(GITHUB_STEP_SUMMARY, summary);
+    appendFileSync(
+      GITHUB_STEP_SUMMARY,
+      buildSummary({ url: URL, browser: BROWSER, passed, errors }),
+    );
   }
 
   if (passed) {
@@ -100,6 +82,6 @@ async function run() {
 }
 
 run().catch((error) => {
-  console.error(`::error::Unexpected error: ${error.message}`);
+  logError(`Unexpected error: ${error.message}`);
   process.exit(1);
 });

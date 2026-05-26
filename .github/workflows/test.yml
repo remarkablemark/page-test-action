@@ -74,3 +74,19 @@ jobs:
           echo "Expected action to fail on failed request but it did not"
           exit 1
         shell: bash
+
+      - name: Run action against console-error-special-chars fixture
+        id: sad-console-error-special-chars
+        uses: ./
+        with:
+          url: http://localhost:3000/console-error-special-chars.html
+          start: python3 -m http.server 3000 --directory fixtures
+          wait-on: http://localhost:3000
+        continue-on-error: true
+
+      - name: Assert console-error-special-chars fixture failed
+        if: steps.sad-console-error-special-chars.outcome != 'failure'
+        run: |
+          echo "Expected action to fail on console error with special characters but it did not"
+          exit 1
+        shell: bash
