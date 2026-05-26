@@ -66,12 +66,23 @@ async function run() {
 
   if (GITHUB_STEP_SUMMARY) {
     const status = passed ? "✅ Passed" : "❌ Failed";
-    let summary = `## Page Test Results\n\n**Status:** ${status}  \n**URL:** ${URL}  \n**Browser:** ${BROWSER}\n\n`;
+    let summary = `## Page Test
+
+| | |
+| --- | --- |
+| **Status** | ${status} |
+| **URL** | ${URL} |
+| **Browser** | ${BROWSER} |
+
+`;
 
     if (!passed) {
-      summary += `| Type | Message |\n| --- | --- |\n`;
+      summary += `| Type | Message |
+| --- | --- |
+`;
       for (const { type, message } of errors) {
-        summary += `| ${type} | ${message.replace(/\|/g, "\\|")} |\n`;
+        summary += `| ${type} | ${message.replace(/\|/g, "\\|")} |
+`;
       }
     }
 
