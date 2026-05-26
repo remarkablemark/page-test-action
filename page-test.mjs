@@ -68,7 +68,7 @@ async function run() {
     const status = passed ? "✅ Passed" : "❌ Failed";
     let summary = `## Page Test
 
-| | |
+| Field | Value |
 | --- | --- |
 | **Status** | ${status} |
 | **URL** | ${URL} |
