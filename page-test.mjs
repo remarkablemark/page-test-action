@@ -4,7 +4,8 @@ import { buildSummary, logError } from "./utils.mjs";
 
 const URL = process.env.URL;
 const BROWSER = process.env.BROWSER || "chromium";
-const TIMEOUT = parseInt(process.env.TIMEOUT || "30000", 10);
+const _TIMEOUT = parseInt(process.env.TIMEOUT, 10);
+const TIMEOUT = Number.isNaN(_TIMEOUT) ? 30000 : _TIMEOUT;
 const GITHUB_STEP_SUMMARY = process.env.GITHUB_STEP_SUMMARY;
 
 const BROWSERS = { chromium, firefox, webkit };
