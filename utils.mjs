@@ -1,4 +1,14 @@
 /**
+ * Logs a GitHub Actions error annotation to stderr.
+ *
+ * @param {string} message - The error message to log.
+ * @returns {void}
+ */
+export function logError(message) {
+  console.error(`::error::${message}`);
+}
+
+/**
  * Escapes a value for safe use in a Markdown table cell.
  * Prevents newline-based row injection and pipe-based column injection.
  *

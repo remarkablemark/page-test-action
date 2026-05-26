@@ -1,6 +1,6 @@
 import { appendFileSync } from "node:fs";
 import { chromium, firefox, webkit } from "playwright";
-import { escapeMarkdownTableCell } from "./utils.mjs";
+import { escapeMarkdownTableCell, logError } from "./utils.mjs";
 
 const URL = process.env.URL;
 const BROWSER = process.env.BROWSER || "chromium";
@@ -11,14 +11,14 @@ const BROWSERS = { chromium, firefox, webkit };
 
 async function run() {
   if (!URL) {
-    console.error("::error::URL environment variable is required");
+    logError("URL environment variable is required");
     process.exit(1);
   }
 
   const browserType = BROWSERS[BROWSER];
   if (!browserType) {
-    console.error(
-      `::error::Unknown browser: ${BROWSER}. Must be chromium, firefox, or webkit.`,
+    logError(
+      `Unknown browser: ${BROWSER}. Must be chromium, firefox, or webkit.`,
     );
     process.exit(1);
   }
@@ -62,7 +62,7 @@ async function run() {
   const passed = errors.length === 0;
 
   for (const { type, message } of errors) {
-    console.log(`::error::${type}: ${message}`);
+    logError(`${type}: ${message}`);
   }
 
   if (GITHUB_STEP_SUMMARY) {
@@ -101,6 +101,6 @@ async function run() {
 }
 
 run().catch((error) => {
-  console.error(`::error::Unexpected error: ${error.message}`);
+  logError(`Unexpected error: ${error.message}`);
   process.exit(1);
 });
