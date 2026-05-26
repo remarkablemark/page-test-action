@@ -15,10 +15,62 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Run action
-        uses: ./
-
-      - name: Run action with version
+      - name: Run action (chromium, example.com)
         uses: ./
         with:
-          version: 2.3.4
+          url: https://example.com
+
+      - name: Run action (firefox, custom timeout)
+        uses: ./
+        with:
+          url: https://example.com
+          browser: firefox
+          timeout: "15000"
+
+      - name: Run action against console-error fixture
+        id: sad-console-error
+        uses: ./
+        with:
+          url: http://localhost:3000/console-error.html
+          start: python3 -m http.server 3000 --directory fixtures
+          wait-on: http://localhost:3000
+        continue-on-error: true
+
+      - name: Assert console-error fixture failed
+        if: steps.sad-console-error.outcome != 'failure'
+        run: |
+          echo "Expected action to fail on console error but it did not"
+          exit 1
+        shell: bash
+
+      - name: Run action against uncaught-exception fixture
+        id: sad-uncaught-exception
+        uses: ./
+        with:
+          url: http://localhost:3000/uncaught-exception.html
+          start: python3 -m http.server 3000 --directory fixtures
+          wait-on: http://localhost:3000
+        continue-on-error: true
+
+      - name: Assert uncaught-exception fixture failed
+        if: steps.sad-uncaught-exception.outcome != 'failure'
+        run: |
+          echo "Expected action to fail on uncaught exception but it did not"
+          exit 1
+        shell: bash
+
+      - name: Run action against failed-request fixture
+        id: sad-failed-request
+        uses: ./
+        with:
+          url: http://localhost:3000/failed-request.html
+          start: python3 -m http.server 3000 --directory fixtures
+          wait-on: http://localhost:3000
+        continue-on-error: true
+
+      - name: Assert failed-request fixture failed
+        if: steps.sad-failed-request.outcome != 'failure'
+        run: |
+          echo "Expected action to fail on failed request but it did not"
+          exit 1
+        shell: bash
