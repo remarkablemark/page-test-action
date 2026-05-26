@@ -69,7 +69,7 @@ async function run() {
     let summary = `## Page Test
 
 | Field | Value |
-| --- | --- |
+| :--- | :--- |
 | **Status** | ${status} |
 | **URL** | ${URL} |
 | **Browser** | ${BROWSER} |
@@ -77,8 +77,10 @@ async function run() {
 `;
 
     if (!passed) {
-      summary += `| Error Type | Error Message |
-| --- | --- |
+      summary += `### Errors
+
+| Error Type | Error Message |
+| :--- | :--- |
 `;
       for (const { type, message } of errors) {
         summary += `| ${type} | ${message.replace(/\|/g, "\\|")} |
