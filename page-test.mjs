@@ -77,7 +77,7 @@ async function run() {
 `;
 
     if (!passed) {
-      summary += `| Type | Message |
+      summary += `| Error Type | Error Message |
 | --- | --- |
 `;
       for (const { type, message } of errors) {
