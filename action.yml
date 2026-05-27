@@ -36,7 +36,7 @@ runs:
     - name: Install Playwright
       shell: bash
       run: |
-        npm install playwright@"$PLAYWRIGHT_VERSION" --ignore-scripts
+        npm install playwright@"$PLAYWRIGHT_VERSION" --ignore-scripts --prefix "$GITHUB_ACTION_PATH"
         npx playwright install --with-deps "$BROWSER"
       env:
         PLAYWRIGHT_VERSION: ${{ inputs.playwright-version }}
