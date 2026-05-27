@@ -47,7 +47,7 @@ runs:
       shell: bash
       run: |
         $START &
-        npx wait-on "$WAIT_ON"
+        timeout 60 bash -c 'until curl -sf "$WAIT_ON" > /dev/null; do sleep 1; done'
       env:
         START: ${{ inputs.start }}
         WAIT_ON: ${{ inputs.wait-on }}
