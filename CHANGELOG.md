@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/remarkablemark/page-test-action/compare/v1.0.2...v1.0.3) (2026-05-27)
+
+
+### Bug Fixes
+
+* **action:** use `npm exec --prefix` to suppress playwright install warning ([#7](https://github.com/remarkablemark/page-test-action/issues/7)) ([e749f34](https://github.com/remarkablemark/page-test-action/commit/e749f344e446bc40fc9dc31a5c73b2b3581e4803))
+
 ## [1.0.2](https://github.com/remarkablemark/page-test-action/compare/v1.0.1...v1.0.2) (2026-05-27)
 
 
