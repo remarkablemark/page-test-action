@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/remarkablemark/page-test-action/compare/v1.0.1...v1.0.2) (2026-05-27)
+
+
+### Bug Fixes
+
+* **action:** install playwright into action path to resolve ESM module ([17173d6](https://github.com/remarkablemark/page-test-action/commit/17173d6c5a2f8d5ee1d30eb78d05fc0ab57ead3c))
+
 ## [1.0.1](https://github.com/remarkablemark/page-test-action/compare/v1.0.0...v1.0.1) (2026-05-26)
 
 
