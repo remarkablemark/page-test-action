@@ -36,7 +36,7 @@ runs:
     - name: Install Playwright
       shell: bash
       run: |
-        npm install playwright@"$PLAYWRIGHT_VERSION" --ignore-scripts
+        npm install playwright@"$PLAYWRIGHT_VERSION" --ignore-scripts --prefix "$GITHUB_ACTION_PATH"
         npx playwright install --with-deps "$BROWSER"
       env:
         PLAYWRIGHT_VERSION: ${{ inputs.playwright-version }}
@@ -47,7 +47,7 @@ runs:
       shell: bash
       run: |
         $START &
-        npx wait-on "$WAIT_ON"
+        timeout 60 bash -c 'until curl -sf "$WAIT_ON" > /dev/null; do sleep 1; done'
       env:
         START: ${{ inputs.start }}
         WAIT_ON: ${{ inputs.wait-on }}
