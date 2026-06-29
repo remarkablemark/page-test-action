@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/remarkablemark/page-test-action/compare/v1.0.4...v1.0.5) (2026-06-29)
+
+
+### Build System
+
+* **deps:** bump actions/cache from 6.0.0 to 6.1.0 ([#12](https://github.com/remarkablemark/page-test-action/issues/12)) ([ea86593](https://github.com/remarkablemark/page-test-action/commit/ea865932087bf78b904200cc66dbe5ac49ad0398))
+
 ## [1.0.4](https://github.com/remarkablemark/page-test-action/compare/v1.0.3...v1.0.4) (2026-06-24)
 
 
