@@ -44,10 +44,12 @@ runs:
 
     - name: Start server
       if: inputs.start != ''
+      id: start-server
       shell: bash
       run: |
-        $START &
-        timeout 60 bash -c 'until curl -sf "$WAIT_ON" > /dev/null; do sleep 1; done'
+        bash -c "$START" &
+        echo "pid=$!" >> "$GITHUB_OUTPUT"
+        i=0; until curl -sf "$WAIT_ON" > /dev/null || [ $i -ge 60 ]; do sleep 1; i=$((i+1)); done
       env:
         START: ${{ inputs.start }}
         WAIT_ON: ${{ inputs.wait-on }}
@@ -59,6 +61,13 @@ runs:
         URL: ${{ inputs.url }}
         BROWSER: ${{ inputs.browser }}
         TIMEOUT: ${{ inputs.timeout }}
+
+    - name: Stop server
+      if: inputs.start != '' && always()
+      shell: bash
+      run: kill "$SERVER_PID" 2>/dev/null || true
+      env:
+        SERVER_PID: ${{ steps.start-server.outputs.pid }}
 
 branding:
   icon: check-circle
