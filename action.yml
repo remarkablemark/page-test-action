@@ -46,7 +46,7 @@ runs:
       if: inputs.start != ''
       shell: bash
       run: |
-        $START &
+        bash -c "$START" &
         timeout 60 bash -c 'until curl -sf "$WAIT_ON" > /dev/null; do sleep 1; done'
       env:
         START: ${{ inputs.start }}

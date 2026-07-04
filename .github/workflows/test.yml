@@ -90,3 +90,10 @@ jobs:
           echo "Expected action to fail on console error with special characters but it did not"
           exit 1
         shell: bash
+
+      - name: Run action with chained start command (&&)
+        uses: ./
+        with:
+          url: http://localhost:3000/success.html
+          start: echo "starting" && python3 -m http.server 3000 --directory fixtures
+          wait-on: http://localhost:3000
