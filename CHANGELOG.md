@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.6](https://github.com/remarkablemark/page-test-action/compare/v1.0.5...v1.0.6) (2026-07-04)
+
+
+### Bug Fixes
+
+* **action:** replace timeout with portable shell loop for macOS compatibility ([ceeb3ce](https://github.com/remarkablemark/page-test-action/commit/ceeb3ce027670f593a215fd3e7bdfa38781c33d0))
+* **action:** run start command via `bash -c` to support shell operators ([ee6459e](https://github.com/remarkablemark/page-test-action/commit/ee6459e599cf28f6c920bd4952e66f1d40cd5c64))
+* **action:** stop background server after page check ([3230497](https://github.com/remarkablemark/page-test-action/commit/32304979cef84521c1840a8570445b7f9d958bb7))
+
 ## [1.0.5](https://github.com/remarkablemark/page-test-action/compare/v1.0.4...v1.0.5) (2026-06-29)
 
 
